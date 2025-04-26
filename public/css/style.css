@@ -1,0 +1,450 @@
+/* Reset default styles for consistency across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container for the entire layout */
+.container {
+    display: flex;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+/* Sidebar logo */
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Navigation list in the sidebar */
+.sidebar .nav {
+    list-style: none;
+}
+
+/* Individual navigation items */
+.sidebar .nav li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Active navigation item */
+.sidebar .nav li.active {
+    background-color: #e0e7ff;
+}
+
+/* Navigation item hover effect */
+.sidebar .nav li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Icon styling in the sidebar */
+.sidebar .nav li .icon {
+    margin-right: 10px;
+}
+
+/* Badge for the Orders count in the sidebar */
+.sidebar .nav li .badge {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Links in the sidebar */
+.sidebar .nav li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Sign-out button styling */
+.signout-btn {
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Upgrade box at the bottom of the sidebar */
+.sidebar .upgrade-box {
+    margin-top: 30px;
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Menu toggle for mobile */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Header right section (search, language, user) */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Search bar styling */
+.search-bar {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+}
+
+/* Language dropdown styling */
+#language-select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Notification icon */
+.notification {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* User profile section in the header */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* User profile image */
+.user img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* Widgets container */
+.widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Individual widget styling */
+.widget {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sales widget styling */
+.sales-widget .sales-amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4caf50;
+    margin: 10px 0;
+}
+
+/* Sales trend text */
+.sales-widget .sales-trend {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Orders widget styling */
+.orders-widget .orders-count {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff9800;
+    margin: 10px 0;
+}
+
+/* Orders trend text */
+.orders-widget .orders-trend {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Products widget styling */
+.products-widget .products-count {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2196f3;
+    margin: 10px 0;
+}
+
+/* Products trend text */
+.products-widget .products-trend {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Orders table widget */
+.orders-table {
+    grid-column: span 3;
+}
+
+/* Responsive table wrapper */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+/* Table header styling */
+table thead {
+    background-color: #f0f0f0;
+}
+
+/* Table header cells */
+table th {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Table body cells */
+table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Add button for new orders */
+.add-btn {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 15px;
+}
+
+/* Add button hover effect */
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+/* Edit button styling */
+.edit-btn {
+    background-color: #2196f3;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+/* Edit button hover effect */
+.edit-btn:hover {
+    background-color: #1e88e5;
+}
+
+/* Delete button styling */
+.delete-btn {
+    background-color: #f44336;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Delete button hover effect */
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Modal overlay for forms */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+    background-color: #fff;
+    width: 500px;
+    max-width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+/* Close button for the modal */
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Form labels */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Form inputs and selects */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Modal buttons container */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Primary button styling (e.g., Add Order, Update Order) */
+.btn-primary {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Primary button hover effect */
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+/* Danger button styling (e.g., Delete Order) */
+.btn-danger {
+    background-color: #f44336;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Danger button hover effect */
+.btn-danger:hover {
+    background-color: #d32f2f;
+}
+
+/* Overlay for mobile sidebar */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    /* Show the menu toggle on mobile */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Hide the sidebar by default on mobile */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    /* Show the sidebar when active on mobile */
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Show the overlay when the sidebar is active */
+    .overlay.active {
+        display: block;
+    }
+
+    /* Adjust the main content margin on mobile */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Make the orders table widget span full width on mobile */
+    .orders-table {
+        grid-column: span 1;
+    }
+}
