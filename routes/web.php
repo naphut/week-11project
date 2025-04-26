@@ -7,3 +7,4 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('orders', OrderController::class);
+Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.update');

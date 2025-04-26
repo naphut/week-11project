@@ -59,9 +59,15 @@ class OrderController extends Controller
             'order_status' => 'required|string'
         ]);
 
-        $order->update($request->all());
+        $order->update([
+            'product_id' => $request->product_id,
+            'customer_type_id' => $request->customer_type_id,
+            'payment_type_id' => $request->payment_type_id,
+            'order_quantity' => $request->order_quantity,
+            'order_date_time' => $request->order_date_time,
+            'order_status' => $request->order_status
+        ]);
 
-        // Return JSON response for AJAX requests
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
@@ -76,7 +82,6 @@ class OrderController extends Controller
     {
         $order->delete();
 
-        // Return JSON response for AJAX requests
         if (request()->ajax()) {
             return response()->json([
                 'success' => true,

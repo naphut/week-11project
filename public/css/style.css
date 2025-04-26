@@ -27,7 +27,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-out;
 }
 
 /* Sidebar logo */
@@ -49,17 +49,19 @@ body {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease-out;
 }
 
 /* Active navigation item */
 .sidebar .nav li.active {
     background-color: #e0e7ff;
+    transform: scale(1.05);
 }
 
 /* Navigation item hover effect */
 .sidebar .nav li:hover {
     background-color: #f0f0f0;
+    transform: scale(1.02);
 }
 
 /* Icon styling in the sidebar */
@@ -94,6 +96,7 @@ body {
     padding: 10px;
     width: 100%;
     text-align: left;
+    transition: background-color 0.3s ease, transform 0.2s ease-out;
 }
 
 /* Upgrade box at the bottom of the sidebar */
@@ -103,6 +106,7 @@ body {
     background-color: #f0f0f0;
     padding: 15px;
     border-radius: 5px;
+    transition: transform 0.3s ease;
 }
 
 /* Main content area */
@@ -110,6 +114,7 @@ body {
     margin-left: 250px;
     padding: 20px;
     width: 100%;
+    transition: margin-left 0.3s ease-out;
 }
 
 /* Header styles */
@@ -128,6 +133,7 @@ body {
     display: none;
     font-size: 24px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 /* Header right section (search, language, user) */
@@ -143,6 +149,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 200px;
+    transition: border-color 0.3s ease;
 }
 
 /* Language dropdown styling */
@@ -156,6 +163,7 @@ body {
 .notification {
     font-size: 20px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 /* User profile section in the header */
@@ -177,6 +185,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
+    transition: grid-template-columns 0.3s ease;
 }
 
 /* Individual widget styling */
@@ -185,6 +194,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-out;
 }
 
 /* Sales widget styling */
@@ -274,11 +284,13 @@ table td {
     cursor: pointer;
     float: right;
     margin-bottom: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease-out;
 }
 
 /* Add button hover effect */
 .add-btn:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
 /* Edit button styling */
@@ -290,11 +302,13 @@ table td {
     border-radius: 5px;
     text-decoration: none;
     margin-right: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease-out;
 }
 
 /* Edit button hover effect */
 .edit-btn:hover {
     background-color: #1e88e5;
+    transform: scale(1.05);
 }
 
 /* Delete button styling */
@@ -305,11 +319,13 @@ table td {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-out;
 }
 
 /* Delete button hover effect */
 .delete-btn:hover {
     background-color: #d32f2f;
+    transform: scale(1.05);
 }
 
 /* Modal overlay for forms */
@@ -322,6 +338,7 @@ table td {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    transition: opacity 0.3s ease;
 }
 
 /* Modal content box */
@@ -333,6 +350,18 @@ table td {
     padding: 20px;
     border-radius: 10px;
     position: relative;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+}
+
+/* Modal fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Close button for the modal */
@@ -387,6 +416,7 @@ table td {
 /* Primary button hover effect */
 .btn-primary:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
 /* Danger button styling (e.g., Delete Order) */
@@ -402,6 +432,7 @@ table td {
 /* Danger button hover effect */
 .btn-danger:hover {
     background-color: #d32f2f;
+    transform: scale(1.05);
 }
 
 /* Overlay for mobile sidebar */
@@ -414,6 +445,7 @@ table td {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    transition: opacity 0.3s ease;
 }
 
 /* Responsive design for mobile devices */
@@ -436,6 +468,7 @@ table td {
     /* Show the overlay when the sidebar is active */
     .overlay.active {
         display: block;
+        opacity: 1;
     }
 
     /* Adjust the main content margin on mobile */

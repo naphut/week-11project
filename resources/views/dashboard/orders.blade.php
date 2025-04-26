@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -18,12 +17,13 @@
         </div>
     </div>
 </div>
+
 <!-- Orders Table -->
 <div class="widget orders-table">
     <h3>All Orders</h3>
     <button class="add-btn" onclick="openAddModal()">Add New Order</button>
     <div class="table-responsive">
-        <table>
+        <table id="orders-table">
             <thead>
                 <tr>
                     <th>Order ID</th>
@@ -36,9 +36,17 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="orders-tbody">
+            <tbody>
                 @foreach($orders as $order)
-                <tr>
+                <tr data-order="{{ json_encode([
+                    'order_id' => $order->order_id,
+                    'product_id' => $order->product_id,
+                    'customer_type_id' => $order->customer_type_id,
+                    'payment_type_id' => $order->payment_type_id,
+                    'order_quantity' => $order->order_quantity,
+                    'order_date_time' => $order->order_date_time,
+                    'order_status' => $order->order_status,
+                ]) }}">
                     <td>{{ $order->order_id }}</td>
                     <td>{{ $order->product->product_name }}</td>
                     <td>{{ $order->customerType->customer_type_description }}</td>
@@ -47,8 +55,8 @@
                     <td>{{ $order->order_date_time }}</td>
                     <td>{{ $order->order_status }}</td>
                     <td>
-                        <button class="edit-btn" onclick="openEditModal('{{ $order->order_id }}')">Edit</button>
-                        <form action="{{ route('orders.destroy', $order->order_id) }}" method="POST" style="display: inline;">
+                        <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+                        <form action="{{ route('orders.destroy', $order->order_id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="delete-btn">Delete</button>
@@ -61,13 +69,14 @@
     </div>
 </div>
 
-<!-- Add New Order Modal -->
+<!-- Add Modal -->
 <div id="add-modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeAddModal()">×</span>
         <h2>Add New Order</h2>
         <form id="add-order-form" action="{{ route('orders.store') }}" method="POST">
             @csrf
+            <!-- Form fields same as before -->
             <div class="form-group">
                 <label for="add-product">Product:</label>
                 <select id="add-product" name="product_id" required class="form-control">
@@ -105,7 +114,7 @@
             </div>
             <div class="form-group">
                 <label for="add-order-status">Order Status:</label>
-                <input type="text" id="add-order-status" name="order_status" placeholder="e.g., Pending" required class="form-control">
+                <input type="text" id="add-order-status" name="order_status" required class="form-control">
             </div>
             <div class="modal-buttons">
                 <button type="submit" class="btn btn-primary">Add Order</button>
@@ -121,10 +130,11 @@
         <h2>Edit Order</h2>
         <form id="edit-order-form" method="POST">
             @csrf
-            @method('PUT')
+            @method('PUT') <!-- PUT method for updating -->
+
             <div class="form-group">
                 <label for="edit-order-id">Order ID:</label>
-                <input type="text" id="edit-order-id" name="edit-order-id" readonly>
+                <input type="text" id="edit-order-id" name="order_id" readonly>
             </div>
             <div class="form-group">
                 <label for="edit-product">Product:</label>
@@ -164,30 +174,14 @@
             </div>
             <div class="modal-buttons">
                 <button type="submit" class="btn btn-primary">Update Order</button>
-                <button type="button" class="btn btn-danger" onclick="deleteOrder()">Delete Order</button>
             </div>
         </form>
     </div>
 </div>
 
+
 @push('scripts')
 <script>
-    // Sidebar Toggle for Mobile
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-    });
-
-    overlay.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-    });
-
-    // Modal Functions
     function openAddModal() {
         document.getElementById('add-modal').style.display = 'block';
     }
@@ -196,47 +190,37 @@
         document.getElementById('add-modal').style.display = 'none';
     }
 
-    function openEditModal(orderId) {
+    function openEditModal(button) {
         const modal = document.getElementById('edit-modal');
-        const row = document.querySelector(`tr:has(td:first-child:contains("${orderId}")`);
-        
-        if (row) {
-            document.getElementById('edit-order-id').value = orderId;
-            document.getElementById('edit-product').value = row.cells[1].textContent;
-            document.getElementById('edit-customer-type').value = row.cells[2].textContent;
-            document.getElementById('edit-payment-type').value = row.cells[3].textContent;
-            document.getElementById('edit-order-quantity').value = row.cells[4].textContent;
-            document.getElementById('edit-order-date-time').value = formatDateTimeForInput(row.cells[5].textContent);
-            document.getElementById('edit-order-status').value = row.cells[6].textContent;
-            
-            // Update form action
-            const form = document.getElementById('edit-order-form');
-            form.action = `/orders/${orderId}`;
-            
-            modal.style.display = 'block';
-        }
+        const data = JSON.parse(button.closest('tr').dataset.order);
+
+        document.getElementById('edit-order-id').value = data.order_id;
+        document.getElementById('edit-product').value = data.product_id;
+        document.getElementById('edit-customer-type').value = data.customer_type_id;
+        document.getElementById('edit-payment-type').value = data.payment_type_id;
+        document.getElementById('edit-order-quantity').value = data.order_quantity;
+        document.getElementById('edit-order-date-time').value = data.order_date_time.slice(0, 16);
+        document.getElementById('edit-order-status').value = data.order_status;
+
+        const form = document.getElementById('edit-order-form');
+        form.action = `/orders/${data.order_id}`;
+
+        modal.style.display = 'block';
     }
 
     function closeEditModal() {
         document.getElementById('edit-modal').style.display = 'none';
     }
 
-    function formatDateTimeForInput(dateTimeString) {
-        const date = new Date(dateTimeString);
-        return date.toISOString().slice(0, 16);
-    }
-
-    // Close Modals When Clicking Outside
-    window.addEventListener('click', (e) => {
-        const editModal = document.getElementById('edit-modal');
-        const addModal = document.getElementById('add-modal');
-        if (e.target === editModal) {
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('edit-modal')) {
             closeEditModal();
         }
-        if (e.target === addModal) {
+        if (event.target == document.getElementById('add-modal')) {
             closeAddModal();
         }
-    });
+    }
 </script>
 @endpush
+
 @endsection
