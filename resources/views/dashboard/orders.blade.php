@@ -114,23 +114,6 @@
     </div>
 </div>
 
-<!-- Add data attributes to table rows -->
-@foreach($orders as $order)
-<tr data-order-id="{{ $order->order_id }}" 
-    data-product-id="{{ $order->product_id }}"
-    data-customer-type-id="{{ $order->customer_type_id }}"
-    data-payment-type-id="{{ $order->payment_type_id }}"
-    data-quantity="{{ $order->order_quantity }}"
-    data-date-time="{{ $order->order_date_time->format('Y-m-d\TH:i') }}"
-    data-status="{{ $order->order_status }}">
-    <!-- ... existing table cells ... -->
-    <td>
-        <button class="edit-btn" onclick="openEditModal('{{ $order->order_id }}')">Edit</button>
-        <!-- ... delete button ... -->
-    </td>
-</tr>
-@endforeach
-
 <!-- Edit Modal -->
 <div id="edit-modal" class="modal">
     <div class="modal-content">
@@ -141,11 +124,11 @@
             @method('PUT')
             <div class="form-group">
                 <label for="edit-order-id">Order ID:</label>
-                <input type="text" id="edit-order-id" name="order_id" readonly>
+                <input type="text" id="edit-order-id" name="edit-order-id" readonly>
             </div>
             <div class="form-group">
                 <label for="edit-product">Product:</label>
-                <select id="edit-product" name="product_id" required class="form-control">
+                <select id="edit-product" name="product_id" required>
                     @foreach($products as $product)
                     <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
                     @endforeach
@@ -153,7 +136,7 @@
             </div>
             <div class="form-group">
                 <label for="edit-customer-type">Customer Type:</label>
-                <select id="edit-customer-type" name="customer_type_id" required class="form-control">
+                <select id="edit-customer-type" name="customer_type_id" required>
                     @foreach($customerTypes as $type)
                     <option value="{{ $type->customer_type_id }}">{{ $type->customer_type_description }}</option>
                     @endforeach
@@ -161,7 +144,7 @@
             </div>
             <div class="form-group">
                 <label for="edit-payment-type">Payment Type:</label>
-                <select id="edit-payment-type" name="payment_type_id" required class="form-control">
+                <select id="edit-payment-type" name="payment_type_id" required>
                     @foreach($paymentTypes as $type)
                     <option value="{{ $type->payment_type_id }}">{{ $type->payment_type_description }}</option>
                     @endforeach
@@ -169,19 +152,19 @@
             </div>
             <div class="form-group">
                 <label for="edit-order-quantity">Order Quantity:</label>
-                <input type="number" id="edit-order-quantity" name="order_quantity" min="1" required class="form-control">
+                <input type="number" id="edit-order-quantity" name="order_quantity" min="1" required>
             </div>
             <div class="form-group">
                 <label for="edit-order-date-time">Order Date & Time:</label>
-                <input type="datetime-local" id="edit-order-date-time" name="order_date_time" required class="form-control">
+                <input type="datetime-local" id="edit-order-date-time" name="order_date_time" required>
             </div>
             <div class="form-group">
                 <label for="edit-order-status">Order Status:</label>
-                <input type="text" id="edit-order-status" name="order_status" required class="form-control">
+                <input type="text" id="edit-order-status" name="order_status" required>
             </div>
             <div class="modal-buttons">
                 <button type="submit" class="btn btn-primary">Update Order</button>
-                <button type="button" class="btn btn-danger" onclick="handleDelete()">Delete Order</button>
+                <button type="button" class="btn btn-danger" onclick="deleteOrder()">Delete Order</button>
             </div>
         </form>
     </div>
