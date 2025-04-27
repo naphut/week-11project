@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +20,16 @@
                 <li><span class="icon">📈</span><a href="#">PaymentType</a></li>
                 <li><span class="icon">✉️</span><a href="#">Messages</a></li>
                 <li><span class="icon">⚙️</span><a href="#">Settings</a></li>
-                <li><span class="icon">🚪</span><a href="#">Sign Out</a></li>
+                <!-- Logout Form -->
+                <li>
+                    <span class="icon">🚪</span>
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" style="background:none; border:none; color: inherit; padding: 0; font: inherit; cursor: pointer;">
+                            Sign Out
+                        </button>
+                    </form>
+                </li>
             </ul>
             <div class="upgrade-box">
                 <div class="logo">shop</div>
@@ -32,6 +40,11 @@
         <div class="overlay" id="overlay"></div>
         <!-- Main Content -->
         <div class="main-content">
+            @if(session('user'))
+                <div class="welcome-message">
+                    Welcome, {{ session('user')->name }}!
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
